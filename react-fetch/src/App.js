@@ -41,18 +41,9 @@ class App extends Component {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">
-                  {todo.completed &&
-                    <span>
-                      Completed
-              </span>
-                  }
-                  {!todo.completed &&
-                    <span>
-                      Pending
-              </span>
-                  }
-                </h6>
+                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="300px" height="100%" src={logo}></img>
+                {this.state.hover ? <button className="tv-remove-btn">Add</button> : ''} 
+                
               </div>
             </div>
           ))}
