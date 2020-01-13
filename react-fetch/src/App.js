@@ -30,22 +30,22 @@ class App extends Component {
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
                 <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
-                {this.state.hover ? <button className="tv-remove-btn">Remove</button> : ''} 
+                {this.state.hover ? <button className="tv-remove-btn">Remove</button> :  <br />} 
               </div>
             </div>
           ))}
  
         </div>
         <hr />
-        <div className="col-xs-12">
+
           <h2>Recommendations</h2>
+          <div className="row">
           {this.state.todos.map((todo) => (
-            <div className="card">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
-                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="300px" height="100%" src={logo}></img>
-                {this.state.hover ? <button className="tv-remove-btn">Add</button> : ''} 
-                
+                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
+                {this.state.hover ? <button className="tv-remove-btn">Add</button> : <br />} 
               </div>
             </div>
           ))}

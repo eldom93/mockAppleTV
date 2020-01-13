@@ -9,17 +9,19 @@
 
 .tv-remove-btn {
   display: block;
-
-
+}
+.tv-img{
+  max-width: 150px;
+  max-height:150px;
 }
 .card{
   border-radius:.625rem;
-  padding:1rem;
+ 
   margin:1rem;
   display:flex;
   flex-direction: column;
   flex-wrap:wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -44,11 +46,15 @@
   color: #61dafb;
 }
 .title {
-  text-align:center;
-  padding:1.625rem;
+  text-align:left;
+
 }
 h2{
-  padding:1.625rem;
+  text-align: left;
+  padding:.625rem;
+}
+.card-title{
+  text-align: left !important;
 }
 @keyframes App-logo-spin {
   from {
