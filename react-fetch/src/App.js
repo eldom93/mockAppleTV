@@ -22,19 +22,21 @@ class App extends Component {
     return (
       <div className="container">
         <h1 className="title">Apple TV</h1>
-        <div className="col-xs-12">
-          <h2>My List</h2>
+        <hr />
+        <h2>My List</h2>
+        <div className="row">
           {this.state.todos.map((todo) => (
-            <div className="card">
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
-                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="300px" height="100%" src={logo}></img>
+                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
                 {this.state.hover ? <button className="tv-remove-btn">Remove</button> : ''} 
-                
               </div>
             </div>
           ))}
+ 
         </div>
+        <hr />
         <div className="col-xs-12">
           <h2>Recommendations</h2>
           {this.state.todos.map((todo) => (
