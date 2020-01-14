@@ -7,11 +7,11 @@ class App extends Component {
     this.state = {
       todos: [],
       hover: false,
-      myList:[],
-      recommendations: []
+      todo: []
     }
-    this.onClick = this.onClick.bind(this); 
-}
+    this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
+    }
  componentDidMount() {
     fetch('http://jsonplaceholder.typicode.com/todos')
       .then(res => res.json())
@@ -25,37 +25,87 @@ class App extends Component {
     this.setState({hover: !this.state.hover});      
   }
 
-  onClick(e){
-    this.setState({myList: this.state.myList.push(e.target.value)});  
-    console.log(this.state.myList);  
-  }
+addTodo(e){
+let { todo, todos } = this.state;
+e.preventDefault();
+this.setState({
+    todo: todo + e.target.value,
+    todos: [...todos, todo]
+})
+
+}
+
+removeTodo(todo){
+let { todos } = this.state;
+todos.splice(todo, 1);
+this.setState({
+  todo: '',
+  todos: [...todos, todo]
+})
+
+}
   render() {
+      let { todo, todos, hover } = this.state;
+  
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
+        <table><tr><td>{todo}</td></tr></table>
         <hr />
         <h2 className="heading">My List</h2>
-        <div className="row">
-          {this.state.todos.map((todo) => (
-            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
-              <div className="card-body">
-                <h5 className="card-title">{todo.title}</h5>
-                <br />
-                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
-                {this.state.hover ? <div className="center-btn"> <button className="tv-btn">Remove</button></div> :  <br />} 
-              </div>
+  
+        <div className={(this.state.todo == '') ? "row my-list" : "row my-list-display-block"}>
+          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
+            <div className="card-body">
+              <h5>{todo}</h5>
+              <img
+                  onMouseOver={this.onMouseOver.bind(this)}
+                  className="tv-img"
+                  width="100%"
+                  height="100%"
+                  src={logo}
+                ></img>
+                {hover ? (
+                  <button
+                    value={todo.title}
+                    onClick={this.removeTodo.bind(undefined, todo)}
+                    key={todo.id}
+                    className="tv-btn"
+                  >
+                    Remove
+                  </button>
+                ) : (
+                  <br />
+                )}
             </div>
-          ))}
+          </div>
         </div>
+
         <hr />
-          <h2 className="heading">Recommendations</h2>
-          <div className="row">
-          {this.state.todos.map((todo) => (
+        <h2 className="heading">Recommendations</h2>
+        <div className="row">
+          {todos.map(todo => (
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
-                <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
-                {this.state.hover ? <button value={todo.title} onClick={this.onClick} className="tv-btn">Add</button> : <br />} 
+                <img
+                  onMouseOver={this.onMouseOver.bind(this)}
+                  className="tv-img"
+                  width="100%"
+                  height="100%"
+                  src={logo}
+                ></img>
+                {this.state.hover ? (
+                  <button
+                    value={todo.title}
+                    onClick={e => this.addTodo(e)}
+                    className="tv-btn"
+                  >
+                    Add
+                  </button>
+                ) : (
+                  <br />
+                )}
               </div>
             </div>
           ))}
