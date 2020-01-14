@@ -6,7 +6,7 @@
     -moz-font-feature-settings: 'kern';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #fff;
+
     color: rgba(0,0,0,.95);
 }
 .my-list{
@@ -100,7 +100,20 @@
 .card-title {
   text-align: left !important;
 }
-
+.title-list{
+  text-align:left;
+  text-transform:capitalize;
+  text-decoration:none;
+  list-style:none;
+}
+.title-list-item{
+  font-size: 12px;
+    line-height: 1.33337;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    font-family: "SF Pro Text","Myriad Set Pro","SF Pro Icons","Apple Legacy Chevron","Helvetica Neue","Helvetica","Arial",sans-serif;
+    color: #86868b;
+}
 .card{
   cursor:pointer;
 }

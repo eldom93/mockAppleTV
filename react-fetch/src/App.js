@@ -110,6 +110,11 @@ this.setState({
             </div>
           ))}
         </div>
+        <hr />
+        <h2 className="heading">My List</h2>
+        <ol className="title-list">
+          {todos.map(todo => (<li className="title-list-item">{todo.title}</li>))}
+        </ol>
       </div>
     );
   }
