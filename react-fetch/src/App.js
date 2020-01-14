@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.svg';
 class App extends Component {
-  state = {
-    todos: [],
-    hover: false
-  }
-  componentDidMount() {
+  constructor(props){
+    super(props);
+    this.state = {
+      todos: [],
+      hover: false,
+      myList:[],
+      recommendations: []
+    }
+    this.onClick = this.onClick.bind(this); 
+}
+ componentDidMount() {
     fetch('http://jsonplaceholder.typicode.com/todos')
       .then(res => res.json())
       .then((data) => {
@@ -17,6 +23,11 @@ class App extends Component {
   }
   onMouseOver(){
     this.setState({hover: !this.state.hover});      
+  }
+
+  onClick(e){
+    this.setState({myList: this.state.myList.push(e.target.value)});  
+    console.log(this.state.myList);  
   }
   render() {
     return (
@@ -35,10 +46,8 @@ class App extends Component {
               </div>
             </div>
           ))}
- 
         </div>
         <hr />
-
           <h2 className="heading">Recommendations</h2>
           <div className="row">
           {this.state.todos.map((todo) => (
@@ -46,7 +55,7 @@ class App extends Component {
               <div className="card-body">
                 <h5 className="card-title">{todo.title}</h5>
                 <img onMouseOver={this.onMouseOver.bind(this)} className="tv-img" width="100%" height="100%" src={logo}></img>
-                {this.state.hover ? <button className="tv-btn">Add</button> : <br />} 
+                {this.state.hover ? <button value={todo.title} onClick={this.onClick} className="tv-btn">Add</button> : <br />} 
               </div>
             </div>
           ))}
