@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.svg';
+import Recommendations from './components/recommendations';
 class App extends Component {
   constructor(props){
     super(props);
@@ -13,11 +14,11 @@ class App extends Component {
     this.removeTodo = this.removeTodo.bind(this);
     }
  componentDidMount() {
-    fetch('http://jsonplaceholder.typicode.com/todos')
+    fetch('http://localhost:3001/json')
       .then(res => res.json())
-      .then((data) => {
-        this.setState({ todos: data })
-        console.log(this.state.todos)
+      .then((json) => {
+        this.setState({ todos: json })
+        console.log(this.state.todos);
       })
       .catch(console.log)
   }
@@ -27,7 +28,6 @@ class App extends Component {
 
 addTodo(e){
 let { todo, todos } = this.state;
-e.preventDefault();
 this.setState({
     todo: todo + e.target.value,
     todos: [...todos, todo]
@@ -50,14 +50,13 @@ this.setState({
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
-        <table><tr><td>{todo}</td></tr></table>
         <hr />
+        
         <h2 className="heading">My List</h2>
-  
         <div className={(this.state.todo == '') ? "row my-list" : "row my-list-display-block"}>
           <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
             <div className="card-body">
-              <h5>{todo}</h5>
+              <h5 className="card-title">{this.state.todos}</h5>
               <img
                   onMouseOver={this.onMouseOver.bind(this)}
                   className="tv-img"
@@ -83,33 +82,7 @@ this.setState({
 
         <hr />
         <h2 className="heading">Recommendations</h2>
-        <div className="row">
-          {todos.map(todo => (
-            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
-              <div className="card-body">
-                <h5 className="card-title">{todo.title}</h5>
-                <img
-                  onMouseOver={this.onMouseOver.bind(this)}
-                  className="tv-img"
-                  width="100%"
-                  height="100%"
-                  src={logo}
-                ></img>
-                {this.state.hover ? (
-                  <button
-                    value={todo.title}
-                    onClick={e => this.addTodo(e)}
-                    className="tv-btn"
-                  >
-                    Add
-                  </button>
-                ) : (
-                  <br />
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+<Recommendations />
         <hr />
         <h2 className="heading">My List</h2>
         <ol className="title-list">
