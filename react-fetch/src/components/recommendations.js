@@ -40,7 +40,6 @@ const tvRecommendations = {
 }
 function Recommendation(props) {
     return (
-  
        <div className="row">
           {tvRecommendations.recommendations.map((props) => (
             <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
@@ -66,5 +65,4 @@ function Recommendation(props) {
             </div>
           ))}
         </div>);
-
   }; export default Recommendation;
