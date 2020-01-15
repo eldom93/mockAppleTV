@@ -42,10 +42,12 @@ function Recommendation(props) {
       {tvRecommendations.recommendations.map(props => (
        <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
        <div className="card-body">
-         <h5 className="card-title">{props.title}</h5>
+         <h5 title={props.title} className="card-title">{props.title}</h5>
        
        </div>
        <img src={props.img}/>
+
+      <br /><br />   <button add={props.add} className="tv-btn">Add</button>
      </div>
       ))}
     </div>

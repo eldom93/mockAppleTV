@@ -7,54 +7,54 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [],
-      hover: false,
-      todo: []
+      mylist:[],
+      hover: false
     };
-    this.addTodo = this.addTodo.bind(this);
-    this.removeTodo = this.removeTodo.bind(this);
+    this.addTitleToList = this.addTitleToList.bind(this);
+    this.removeTitleFromList = this.removeTitleFromList.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
   }
   componentDidMount() {
     fetch("http://localhost:3001/json")
       .then(res => res.json())
       .then(json => {
-        this.setState({ todos: json });
-        console.log(this.state.todos);
+        this.setState({ mylist: json });
+        console.log(this.state.mylist);
       })
       .catch(console.log);
   }
   onMouseOver() {
-    this.setState({ hover: !this.state.hover });
+    this.setState({ hover: !this.state.hover, });
   }
 
-  addTodo(e) {
-    let { todo, todos } = this.state;
+  addTitleToList(title) {
     this.setState({
-      todo: todo + e.target.value,
-      todos: [...todos, todo]
+      myList: title,
     });
   }
 
-  removeTodo(todo) {
-    let { todos } = this.state;
-    todos.splice(todo, 1);
+  removeTitleFromList(title) {
+    let { titles } = this.state;
+    titles.splice(title, 1);
     this.setState({
-      todo: "",
-      todos: [...todos, todo]
+      myList: title,
     });
   }
   render() {
-    let { todo, todos, hover } = this.state;
-
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
         <hr />
         <h2 className="heading">My List</h2>
-        <MyList />
+        <MyList onMouseOver={this.onMouseOver.bind(this)} onClick={this.removeTitleFromList.bind(this)}
+/>
         <hr />
         <h2 className="heading">Recommendations</h2>
-        <Recommendations />
+        <Recommendations onMouseOver={this.onMouseOver.bind(this)} onClick={this.addTitleToList.bind(this)} />
+
+     
+           
+        
         <hr />
         <h2 className="heading">My List</h2>
         <ListTitles />

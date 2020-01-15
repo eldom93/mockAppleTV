@@ -44,8 +44,7 @@ function MyList(props) {
         <h5 className="card-title">{props.title}</h5>
       
       </div>
-      <img src={props.img}/>
-    </div>
+      <img src={props.img}/><br /><br /><button remove={props.remove} className="tv-btn">Remove</button> </div>
    
   ))}</div>);
 }
