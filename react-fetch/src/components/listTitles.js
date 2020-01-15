@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-const tvList = {
+const listTitles = {
   mylist: [
     {
       title: "Futurama",
@@ -36,19 +36,14 @@ const tvList = {
     }
   ]
 };
-function MyList(props) {
-  return ( <div className="row">
-  {tvList.mylist.map(props => (
-    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
-      <div className="card-body">
-        <h5 className="card-title">{props.title}</h5>
-      
-      </div>
-      <img src={props.img}/>
-    </div>
-   
-  ))}</div>);
+function ListTitles(props) {
+  return (
+    <ol className="row">
+        {listTitles.mylist.map(props => (
+          <li className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card"><h5 className="card-body card-title">{props.title}</h5></li>
+        ))}
+    </ol>
+  );
 }
-export default MyList;
-
+export default ListTitles;
 

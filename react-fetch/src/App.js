@@ -1,95 +1,95 @@
-import React, { Component } from 'react';
-import './App.css';
-import logo from './logo.svg';
-import Recommendations from './components/recommendations';
+import React, { Component } from "react";
+import "./App.css";
+import Recommendations from "./components/recommendations";
+import MyList from "./components/mylist";
+import ListTitles from "./components/listTitles";
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       todos: [],
       hover: false,
       todo: []
-    }
+    };
     this.addTodo = this.addTodo.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
-    }
- componentDidMount() {
-    fetch('http://localhost:3001/json')
+  }
+  componentDidMount() {
+    fetch("http://localhost:3001/json")
       .then(res => res.json())
-      .then((json) => {
-        this.setState({ todos: json })
+      .then(json => {
+        this.setState({ todos: json });
         console.log(this.state.todos);
       })
-      .catch(console.log)
+      .catch(console.log);
   }
-  onMouseOver(){
-    this.setState({hover: !this.state.hover});      
+  onMouseOver() {
+    this.setState({ hover: !this.state.hover });
   }
 
-addTodo(e){
-let { todo, todos } = this.state;
-this.setState({
-    todo: todo + e.target.value,
-    todos: [...todos, todo]
-})
+  addTodo(e) {
+    let { todo, todos } = this.state;
+    this.setState({
+      todo: todo + e.target.value,
+      todos: [...todos, todo]
+    });
+  }
 
-}
-
-removeTodo(todo){
-let { todos } = this.state;
-todos.splice(todo, 1);
-this.setState({
-  todo: '',
-  todos: [...todos, todo]
-})
-
-}
+  removeTodo(todo) {
+    let { todos } = this.state;
+    todos.splice(todo, 1);
+    this.setState({
+      todo: "",
+      todos: [...todos, todo]
+    });
+  }
   render() {
-      let { todo, todos, hover } = this.state;
-  
+    let { todo, todos, hover } = this.state;
+
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
         <hr />
-        
         <h2 className="heading">My List</h2>
-        <div className={(this.state.todo == '') ? "row my-list" : "row my-list-display-block"}>
-          <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card">
-            <div className="card-body">
-              <h5 className="card-title">{this.state.todos}</h5>
-              <img
-                  onMouseOver={this.onMouseOver.bind(this)}
-                  className="tv-img"
-                  width="100%"
-                  height="100%"
-                  src={logo}
-                ></img>
-                {hover ? (
-                  <button
-                    value={todo.title}
-                    onClick={this.removeTodo.bind(undefined, todo)}
-                    key={todo.id}
-                    className="tv-btn"
-                  >
-                    Remove
-                  </button>
-                ) : (
-                  <br />
-                )}
-            </div>
-          </div>
-        </div>
-
+        <MyList />
         <hr />
         <h2 className="heading">Recommendations</h2>
-<Recommendations />
+        <Recommendations />
         <hr />
         <h2 className="heading">My List</h2>
-        <ol className="title-list">
-          {todos.map(todo => (<li className="title-list-item">{todo.title}</li>))}
-        </ol>
+        <ListTitles />
+      
       </div>
     );
   }
 }
-export default App;
+export default App; /*  <img
+onMouseOver={props.onMouseOver}
+className="tv-img"
+width="100%"
+height="100%"
+src={props.img}
+></img>
+{props.hover ? (
+<button
+  value={props}
+  onClick={props.removeTodo}
+  key={props.id}
+  className="tv-btn"
+>
+  Remove
+</button>
+) : (
+<br />
+)}   <img
+            className="col-xs-12 col-sm-6 col-md-4 col-lg-3 tv-img"
+            src={props.img}
+          />
+          <div className="card-body">
+            {props.hover ? (
+              <button value={props.id} className="tv-btn">
+                Add
+              </button>
+            ) : (
+              <br />
+            )}*/
