@@ -1,6 +1,5 @@
 import React from "react";
 import "../App.css";
-import TVData from './data';
 import Title from './title';
 
 const updatedData = {

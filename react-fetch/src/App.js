@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import ListTitles from "./components/listTitles";
 import TVData from './components/data';
-
+let clickedObj = {
+  title:'Power', 
+  id: 7, 
+  img: "http://cdn1.nflximg.net/webp/7621/3787621.webp" 
+};
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +18,7 @@ class App extends Component {
     this.addTitleToList = this.addTitleToList.bind(this);
     this.removeTitleFromList = this.removeTitleFromList.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
     fetch("http://localhost:3001/")
@@ -29,11 +34,22 @@ class App extends Component {
   }
 
   addTitleToList(title, img) {
+    
     this.setState({
-      myList: title, img
+      mylist: title, img
     });
+ console.log(this.state.myList)
   }
-
+handleClick(e){
+  e.preventDefault();
+  let { item } = e.target.value;
+  this.setState({
+    mylist: this.state.mylist + item
+  });
+   
+  console.log(this.state.mylist.length);
+  console.log(e.target.value)
+}
   removeTitleFromList(title, img) {
     let { titles } = this.state;
     titles.splice(title, 1);
@@ -48,15 +64,17 @@ class App extends Component {
 
         <hr />
         <h2 className="heading">My List</h2>
-        <TVData />
+      
+        <TVData onMouseOver={this.onMouseOver} />
+ 
         <hr />
         <h2 className="heading">Recommendations</h2>
-        <TVData />
-        <button onMouseOver={this.onMouseOver.bind(this)} onClick={this.addTitleToList.bind(this)} />
+        <TVData onMouseOver={this.onMouseOver.bind(this)} />
+        <button value={clickedObj} onClick={this.handleClick}>
 
-     
-           
-        
+     {clickedObj.title}
+       
+        </button>
         <hr />
         <h2 className="heading">My List</h2>
         <ListTitles />
