@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./App.css";
 import ListTitles from "./components/listTitles";
 import TVData from './components/data';
+import Title from './components/title';
 let clickedObj = {
-  title:'Power', 
-  id: 7, 
-  img: "http://cdn1.nflximg.net/webp/7621/3787621.webp" 
-};
+  mynewlist:[{
+            title:'Power',
+            id: 7,
+            img: "http://cdn1.nflximg.net/webp/7621/3787621.webp" 
+            }]
+  };
 class App extends Component {
   constructor(props) {
     super(props);
@@ -70,17 +73,24 @@ handleClick(e){
         <hr />
         <h2 className="heading">Recommendations</h2>
         <TVData onMouseOver={this.onMouseOver.bind(this)} />
-        <button value={clickedObj} onClick={this.handleClick}>
+        <button value={clickedObj.mynewlist.map(props=>(props.title))} onClick={this.handleClick}>
 
-     {clickedObj.title}
-       
+       Add
         </button>
         <hr />
+   
         <h2 className="heading">My List</h2>
         <ListTitles />
-      
+        <ol className="row">
+          {clickedObj.mynewlist.map(props =>(
+          <li key={Math.random().toString()} className="col-12-xs col-6-s col-4-md col-3-lg card-body">
+            <Title className="card card-title" title={props.title} />
+          </li>
+        ))}
+        </ol>
       </div>
     );
   }
 }
+
 export default App;
