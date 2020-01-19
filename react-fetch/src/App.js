@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import Recommendations from "./components/recommendations";
-import MyList from "./components/mylist";
 import ListTitles from "./components/listTitles";
+import TVData from './components/data';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -10,12 +10,13 @@ class App extends Component {
       mylist:[],
       hover: false
     };
+   
     this.addTitleToList = this.addTitleToList.bind(this);
     this.removeTitleFromList = this.removeTitleFromList.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
   }
   componentDidMount() {
-    fetch("http://localhost:3001/json")
+    fetch("http://localhost:3001/")
       .then(res => res.json())
       .then(json => {
         this.setState({ mylist: json });
@@ -27,30 +28,31 @@ class App extends Component {
     this.setState({ hover: !this.state.hover, });
   }
 
-  addTitleToList(title) {
+  addTitleToList(title, img) {
     this.setState({
-      myList: title,
+      myList: title, img
     });
   }
 
-  removeTitleFromList(title) {
+  removeTitleFromList(title, img) {
     let { titles } = this.state;
     titles.splice(title, 1);
     this.setState({
-      myList: title,
+      myList: title,img
     });
   }
   render() {
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
+
         <hr />
         <h2 className="heading">My List</h2>
-        <MyList onMouseOver={this.onMouseOver.bind(this)} onClick={this.removeTitleFromList.bind(this)}
-/>
+        <TVData />
         <hr />
         <h2 className="heading">Recommendations</h2>
-        <Recommendations onMouseOver={this.onMouseOver.bind(this)} onClick={this.addTitleToList.bind(this)} />
+        <TVData />
+        <button onMouseOver={this.onMouseOver.bind(this)} onClick={this.addTitleToList.bind(this)} />
 
      
            
@@ -63,33 +65,4 @@ class App extends Component {
     );
   }
 }
-export default App; /*  <img
-onMouseOver={props.onMouseOver}
-className="tv-img"
-width="100%"
-height="100%"
-src={props.img}
-></img>
-{props.hover ? (
-<button
-  value={props}
-  onClick={props.removeTodo}
-  key={props.id}
-  className="tv-btn"
->
-  Remove
-</button>
-) : (
-<br />
-)}   <img
-            className="col-xs-12 col-sm-6 col-md-4 col-lg-3 tv-img"
-            src={props.img}
-          />
-          <div className="card-body">
-            {props.hover ? (
-              <button value={props.id} className="tv-btn">
-                Add
-              </button>
-            ) : (
-              <br />
-            )}*/
+export default App;
