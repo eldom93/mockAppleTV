@@ -1,96 +1,108 @@
 import React, { Component } from "react";
 import "./App.css";
 import ListTitles from "./components/listTitles";
-import TVData from './components/data';
-import Title from './components/title';
+import TVData from "./components/data";
+import Title from "./components/title";
+
 let clickedObj = {
-  mynewlist:[{
-            title:'Power',
-            id: 7,
-            img: "http://cdn1.nflximg.net/webp/7621/3787621.webp" 
-            }]
-  };
+  mynewlist: [
+    {
+      title: "Power",
+      id: 7,
+      img: "http://cdn1.nflximg.net/webp/7621/3787621.webp"
+    }
+  ]
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mylist:[],
-      hover: false
+      mylist: [],
+      hover: false,
+      title: "",
+      mynewlist: []
     };
-   
+
     this.addTitleToList = this.addTitleToList.bind(this);
     this.removeTitleFromList = this.removeTitleFromList.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+ //   this.handleClick = this.handleClick.bind(this);
   }
+
   componentDidMount() {
     fetch("http://localhost:3001/")
       .then(res => res.json())
       .then(json => {
         this.setState({ mylist: json });
-        console.log(this.state.mylist);
       })
       .catch(console.log);
   }
+
   onMouseOver() {
-    this.setState({ hover: !this.state.hover, });
+    this.setState({ hover: !this.state.hover });
   }
 
-  addTitleToList(title, img) {
-    
+  addTitleToList(title) {
     this.setState({
-      mylist: title, img
+      mynewlist: [this.state.mynewlist,title]
     });
- console.log(this.state.myList)
+    //console.log(title);
   }
-handleClick(e){
-  e.preventDefault();
-  let { item } = e.target.value;
-  this.setState({
-    mylist: this.state.mylist + item
-  });
-   
-  console.log(this.state.mylist.length);
-  console.log(e.target.value)
-}
-  removeTitleFromList(title, img) {
-    let { titles } = this.state;
-    titles.splice(title, 1);
+
+  removeTitleFromList(title) {
+    //let { titles } = this.state;
     this.setState({
-      myList: title,img
+      mylist: title
     });
   }
   render() {
+    console.log(this.state.mynewlist.length === 0);
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
 
         <hr />
         <h2 className="heading">My List</h2>
-      
-        <TVData onMouseOver={this.onMouseOver} />
- 
+
+        <TVData
+          removeTitleFromList={this.removeTitleFromList.bind(this)}
+          onMouseOver={this.onMouseOver.bind(this)}
+          title={this.state.title}
+        />
+
         <hr />
         <h2 className="heading">Recommendations</h2>
-        <TVData onMouseOver={this.onMouseOver.bind(this)} />
-        <button value={clickedObj.mynewlist.map(props=>(props.title))} onClick={this.handleClick}>
 
-       Add
-        </button>
+        <TVData
+          addTitleToList={this.addTitleToList.bind(this)}
+          onMouseOver={this.onMouseOver.bind(this)}
+          title={this.state.title}
+        />
         <hr />
-   
+
         <h2 className="heading">My List</h2>
-        <ListTitles />
-        <ol className="row">
-          {clickedObj.mynewlist.map(props =>(
-          <li key={Math.random().toString()} className="col-12-xs col-6-s col-4-md col-3-lg card-body">
-            <Title className="card card-title" title={props.title} />
-          </li>
-        ))}
-        </ol>
+        <ListTitles/>
+        {this.state.mynewlist === 0 ? ('') : (
+        <div className="row">
+        {this.state.mynewlist.map(title => (<ol><li key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body"><Title
+                value={this.state.title}
+                className="card card-title"
+          title={title}></Title></li></ol>
+          ))}
+        </div>)}
       </div>
     );
   }
 }
 
 export default App;
+/*
+  handleClick(e) {
+    e.preventDefault();
+    let { item } = e.target.value;
+    this.setState({
+      mylist: this.state.mylist + item
+    });
+  }
+  */

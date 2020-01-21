@@ -26,17 +26,17 @@
 
 .tv-btn {
   display: block;
-  background-color:rgba(84,84,84,.5);
+  margin-left:25px;
+  width:300px;
+  background-color:rgba(0,0,0,.68);
   color: rgba(255,255,255,.9);
   border: 2px solid transparent;
   border-radius: 2px;
   font-family: inherit;
-   width: 100%;
   border: none;
   padding: 0 16px;
   text-align: center;
   vertical-align: middle;
-  background-color: rgba(84,84,84,.5);
   height: 48px;
   margin-bottom: 12px;
   cursor:pointer;
