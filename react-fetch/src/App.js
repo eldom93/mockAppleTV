@@ -27,7 +27,7 @@ class App extends Component {
     this.addTitleToList = this.addTitleToList.bind(this);
     this.removeTitleFromList = this.removeTitleFromList.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
- //   this.handleClick = this.handleClick.bind(this);
+
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class App extends Component {
 
   addTitleToList(title) {
     this.setState({
-      mynewlist: [this.state.mynewlist,title]
+      mynewlist: [[...this.state.mynewlist],title]
     });
     //console.log(title);
   }
@@ -97,12 +97,3 @@ class App extends Component {
 }
 
 export default App;
-/*
-  handleClick(e) {
-    e.preventDefault();
-    let { item } = e.target.value;
-    this.setState({
-      mylist: this.state.mylist + item
-    });
-  }
-  */
