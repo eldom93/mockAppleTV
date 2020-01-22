@@ -1,7 +1,7 @@
 import React from 'react';
 import Title from './title';
 import TVImage from './tvImage';
-
+//let data = [];
 const tvdata = {
     mylist: [{
         title: "Futurama",
@@ -39,14 +39,24 @@ const tvdata = {
 
 export default class TVData extends React.Component {
     handleClick(e) {
+        e.preventDefault();
         const title = e.target.value;
         this.props.addTitleToList(title);
-       // console.log(e.target.value);
+ /* if(title === tvdata.mylist[0].title){
+      data = tvdata.mylist;
+  }
+  else if(title !== tvdata.mylist[0].title && 2 === tvdata.mylist.length - 1){
+      data = tvdata.mylist.push({title});
+  }
+        console.log(data);
+    */
+   
     }
     handleChange(e){
+       /* e.preventDefault();
         const hover = e.target.value;
 console.log(hover);
-        this.props.onMouseOver(this.props.hover);
+        this.props.onMouseOver(hover);*/
    
     }
 
@@ -56,15 +66,15 @@ console.log(hover);
                 {
                     tvdata.mylist.map(
                         props => (
-                            <li value={this.props.hover}
-                            hover={this.props.hover} 
+                            <li 
+                            hover={props.title} 
                             onMouseOver={this.handleChange.bind(this)} key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body">
                                 <TVImage src={props.img} />
                                 <Title 
                                 title={props.title} />
                              
                                 <button 
-                                className={this.props.hover == false?"tv-btn-hide":"tv-btn"}
+                                className='tv-btn'
                                 title={props.title} 
                                 value={props.title} 
                                 onClick={this.handleClick.bind(this)}>

@@ -3,17 +3,7 @@ import "./App.css";
 import ListTitles from "./components/listTitles";
 import TVData from "./components/data";
 import Title from "./components/title";
-
-let clickedObj = {
-  mynewlist: [
-    {
-      title: "Power",
-      id: 7,
-      img: "http://cdn1.nflximg.net/webp/7621/3787621.webp"
-    }
-  ]
-};
-
+import Recommendations from "./components/recommendations";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -41,26 +31,29 @@ class App extends Component {
 
   onMouseOver(hover) {
 
-console.log(hover);
     this.setState({ hover: true });
  
   }
-  onMouseOut() {
+  onMouseOut(hover) {
 
-    this.setState({ hover: false});
+   this.setState({ hover: false});
   }
 
   addTitleToList(title) {
     this.setState({
-      mynewlist: [[...this.state.mynewlist],title]
+      mynewlist: [[this.state.mynewlist],[title]]
     });
   }
 
   removeTitleFromList(title) {
-    //let { titles } = this.state;
+    let { titles } = this.state;
+   // titles.splice(title,1);
+console.log([title]);
+    
     this.setState({
-      mylist: title
+      mynewlist: [[...this.state.mynewlist].splice(title,1)]
     });
+    console.log(this.state.mynewlist)
   }
   render() {
     return (
@@ -70,7 +63,7 @@ console.log(hover);
         <hr />
         <h2 className="heading">My List</h2>
 
-        <TVData
+        <Recommendations
           hover={this.state.hover}
           removeTitleFromList={this.removeTitleFromList.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
@@ -80,15 +73,13 @@ console.log(hover);
 
         <hr />
         <h2 className="heading">Recommendations</h2>
-
-        <TVData
-           hover={this.state.hover}
-          addTitleToList={this.addTitleToList.bind(this)}
-          onMouseOver={this.onMouseOver.bind(this)}
-          onMouseOut={this.onMouseOut.bind(this)}
-          title={this.state.title}
-        
-        />
+<TVData
+   hover={this.state.hover}
+   addTitleToList={this.addTitleToList.bind(this)}
+   onMouseOver={this.onMouseOver.bind(this)}
+   onMouseOut={this.onMouseOut.bind(this)}
+   title={this.state.title}
+/>
           
         <hr />
 
