@@ -25,7 +25,7 @@
 }
 
 .tv-btn {
-  display: block;
+  display: block !important;
   margin-left:25px;
   width:300px;
   background-color:rgba(0,0,0,.68);
@@ -43,8 +43,12 @@
   font-weight: 500;
   font-size:1rem;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
+ 
 }
+.tv-btn-hide{
+  display:none;
+}
+
 
 .tv-img {
   background-color: black;

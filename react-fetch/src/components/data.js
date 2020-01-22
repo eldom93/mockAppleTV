@@ -43,6 +43,12 @@ export default class TVData extends React.Component {
         this.props.addTitleToList(title);
        // console.log(e.target.value);
     }
+    handleChange(e){
+        const hover = e.target.value;
+console.log(hover);
+        this.props.onMouseOver(this.props.hover);
+   
+    }
 
     render() {
         return (
@@ -50,16 +56,26 @@ export default class TVData extends React.Component {
                 {
                     tvdata.mylist.map(
                         props => (
-                            <li key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body">
+                            <li value={this.props.hover}
+                            hover={this.props.hover} 
+                            onMouseOver={this.handleChange.bind(this)} key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body">
                                 <TVImage src={props.img} />
-                                <Title title={props.title} />
-                                <button className="tv-btn" title={props.title} value={props.title} onClick={this.handleClick.bind(this)}>
+                                <Title 
+                                title={props.title} />
+                             
+                                <button 
+                                className={this.props.hover == false?"tv-btn-hide":"tv-btn"}
+                                title={props.title} 
+                                value={props.title} 
+                                onClick={this.handleClick.bind(this)}>
                                     Add
                                 </button>
                             </li>
+                           
                         )
                     )
                 }
+             
             </ol>
         );
     }

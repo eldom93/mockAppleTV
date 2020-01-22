@@ -26,7 +26,7 @@ class App extends Component {
 
     this.addTitleToList = this.addTitleToList.bind(this);
     this.removeTitleFromList = this.removeTitleFromList.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
+  //  this.onMouseOver = this.onMouseOver.bind(this);
 
   }
 
@@ -39,15 +39,21 @@ class App extends Component {
       .catch(console.log);
   }
 
-  onMouseOver() {
-    this.setState({ hover: !this.state.hover });
+  onMouseOver(hover) {
+
+console.log(hover);
+    this.setState({ hover: true });
+ 
+  }
+  onMouseOut() {
+
+    this.setState({ hover: false});
   }
 
   addTitleToList(title) {
     this.setState({
       mynewlist: [[...this.state.mynewlist],title]
     });
-    //console.log(title);
   }
 
   removeTitleFromList(title) {
@@ -57,7 +63,6 @@ class App extends Component {
     });
   }
   render() {
-    console.log(this.state.mynewlist.length === 0);
     return (
       <div className="container">
         <h1 className="title">Apple TV+</h1>
@@ -66,8 +71,10 @@ class App extends Component {
         <h2 className="heading">My List</h2>
 
         <TVData
+          hover={this.state.hover}
           removeTitleFromList={this.removeTitleFromList.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
+          onMouseOut={this.onMouseOut.bind(this)}
           title={this.state.title}
         />
 
@@ -75,20 +82,28 @@ class App extends Component {
         <h2 className="heading">Recommendations</h2>
 
         <TVData
+           hover={this.state.hover}
           addTitleToList={this.addTitleToList.bind(this)}
           onMouseOver={this.onMouseOver.bind(this)}
+          onMouseOut={this.onMouseOut.bind(this)}
           title={this.state.title}
+        
         />
+          
         <hr />
 
         <h2 className="heading">My List</h2>
         <ListTitles/>
         {this.state.mynewlist === 0 ? ('') : (
         <div className="row">
-        {this.state.mynewlist.map(title => (<ol><li key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body"><Title
+        {this.state.mynewlist.map(title => (<ol>
+          <li key={Math.random().toString()} className="col-xs-12 col-sm-6 col-md-4 col-lg-3 card-body">
+            <Title
                 value={this.state.title}
                 className="card card-title"
-          title={title}></Title></li></ol>
+          title={title}></Title>
+          </li>
+          </ol>
           ))}
         </div>)}
       </div>
